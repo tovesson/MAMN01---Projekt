@@ -1,13 +1,18 @@
 package com.example.motionmasters.motionmasters;
 
-import android.support.v7.app.AppCompatActivity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        // Play sound
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.sound);
+        mediaPlayer.start();
     }
 }
