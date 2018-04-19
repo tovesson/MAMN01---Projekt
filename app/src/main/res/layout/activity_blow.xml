@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.motionmasters.motionmasters.BlowActivity">
+    android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/blowMasterHeader"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Blowmaster "
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/blowMasterSubHeader"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/blowMasterHeader"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Blow for as long as you can into the microphone"
+        android:textSize="25dp" />
+
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/blowMasterSubHeader"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:src="@drawable/mouth1" />-->
+
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/blowMasterSubHeader"
+        android:layout_alignStart="@+id/blowMasterSubHeader"
+        android:layout_below="@+id/blowMasterSubHeader"
+        android:gravity="center"
+        android:text="0.00"
+        android:textSize="35dp" />
+
+    <ImageView
+        android:id="@+id/blowmasterImage"
+        android:layout_width="120dp"
+        android:layout_height="240dp"
+        android:layout_above="@+id/resultButton"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/blowmasterimage" />
+
+    <Button
+        android:id="@+id/resultButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp"
+        android:text="Done" />
+
+</RelativeLayout>
