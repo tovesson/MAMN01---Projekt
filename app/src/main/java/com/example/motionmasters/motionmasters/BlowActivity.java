@@ -63,16 +63,15 @@ public class BlowActivity extends AppCompatActivity {
         thread = new Thread(new Runnable() {
             public void run() {
                 while(thread != null && !thread.isInterrupted()){
-                    //Let's make the thread sleep for a the approximate sampling time
                     try{Thread.sleep(SAMPLE_DELAY);}catch(InterruptedException ie){ie.printStackTrace();}
-                    readAudioBuffer();//After this call we can get the last value assigned to the lastLevel variable
+                    readAudioBuffer();
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             if(nextScreenCounter > 2.0){
-                                //Intent myIntent = new Intent(BlowActivity.this, MainActivity.class);
-                                //BlowActivity.this.startActivity(myIntent);
+                                Intent myIntent = new Intent(BlowActivity.this, MainActivity.class);
+                                BlowActivity.this.startActivity(myIntent);
                             }
                             else if(lastLevel > 0 && lastLevel <= 50){
                                 mouthImage.setImageResource(R.drawable.gradientone);
@@ -81,36 +80,26 @@ public class BlowActivity extends AppCompatActivity {
                                 currTime = System.currentTimeMillis();
                                 resultText.setText(decimalFormat.format((currTime-startTime)/1000));
                                 mouthImage.setImageResource(R.drawable.gradienttwo);
-                                //result += 0.1;
-                                //resultText.setText(String.format("%.2f", result));
                             }
                             else if(lastLevel > 200 && lastLevel <= 300 ){
                                 currTime = System.currentTimeMillis();
                                 resultText.setText(decimalFormat.format((currTime-startTime)/1000));
                                 mouthImage.setImageResource(R.drawable.gradientthree);
-                                //result += 0.1;
-                                //resultText.setText(String.format("%.2f", result));
                             }
                             else if(lastLevel > 300 && lastLevel <= 400 ){
                                 currTime = System.currentTimeMillis();
                                 resultText.setText(decimalFormat.format((currTime-startTime)/1000));
                                 mouthImage.setImageResource(R.drawable.gradientfour);
-                                //result += 0.1;
-                                //resultText.setText(String.format("%.2f", result));
                             }
                             else if(lastLevel > 400 && lastLevel <= 500 ){
                                 currTime = System.currentTimeMillis();
                                 resultText.setText(decimalFormat.format((currTime-startTime)/1000));
                                 mouthImage.setImageResource(R.drawable.gradientfive);
-                                //result += 0.1;
-                                //resultText.setText(String.format("%.2f", result));
                             }
                             else if(lastLevel > 500 ){
                                 currTime = System.currentTimeMillis();
                                 resultText.setText(decimalFormat.format((currTime-startTime)/1000));
                                 mouthImage.setImageResource(R.drawable.gradientsix);
-                                //result += 0.1;
-                                //resultText.setText(String.format("%.2f", result));
                             }
                         }
                     });
@@ -120,9 +109,6 @@ public class BlowActivity extends AppCompatActivity {
         thread.start();
     }
 
-    /**
-     * Functionality that gets the sound level out of the sample
-     */
     private void readAudioBuffer() {
 
         try {
@@ -132,7 +118,6 @@ public class BlowActivity extends AppCompatActivity {
 
             if (audio != null) {
 
-                // Sense the voice...
                 bufferReadResult = audio.read(buffer, 0, bufferSize);
                 double sumLevel = 0;
                 for (int i = 0; i < bufferReadResult; i++) {
