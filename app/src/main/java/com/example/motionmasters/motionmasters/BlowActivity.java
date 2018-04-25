@@ -1,6 +1,7 @@
 package com.example.motionmasters.motionmasters;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -9,10 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
 
 public class BlowActivity extends AppCompatActivity {
     private static final int sampleRate = 8000;
@@ -24,20 +25,25 @@ public class BlowActivity extends AppCompatActivity {
     private ImageView mouthImage;
     private double result = 0;
     private double nextScreenCounter = 0;
-    Button resultButton;
     TextView resultText;
+    private double startTime;
+    private double currTime;
+    private DecimalFormat decimalFormat;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blow);
-        //mouthImage = (ImageView)findViewById(R.id.imageView);
-        //mouthImage.setKeepScreenOn(true);
-        resultButton = (Button) findViewById(R.id.resultButton);
+        mouthImage = (ImageView)findViewById(R.id.imageView);
+        mouthImage.setKeepScreenOn(true);
         resultText = (TextView) findViewById(R.id.resultText);
         result = 0;
         nextScreenCounter = 0;
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        decimalFormat = new DecimalFormat("0.00");
+
         try {
             bufferSize = AudioRecord
                     .getMinBufferSize(sampleRate, AudioFormat.CHANNEL_IN_MONO,
@@ -46,18 +52,10 @@ public class BlowActivity extends AppCompatActivity {
             android.util.Log.e("TrackingFlow", "Exception", e);
         }
 
-        resultButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            //resultText.setText(Float.toString(result) + "\n" + Float.toString(nextScreenCounter));
-            }
-        });
-
     }
 
     protected void onResume() {
         super.onResume();
-
         audio = new AudioRecord(MediaRecorder.AudioSource.MIC, sampleRate,
                 AudioFormat.CHANNEL_IN_MONO,
                 AudioFormat.ENCODING_PCM_16BIT, bufferSize);
@@ -70,23 +68,49 @@ public class BlowActivity extends AppCompatActivity {
                     readAudioBuffer();//After this call we can get the last value assigned to the lastLevel variable
 
                     runOnUiThread(new Runnable() {
-
                         @Override
                         public void run() {
                             if(nextScreenCounter > 2.0){
-                                Intent myIntent = new Intent(BlowActivity.this, MainActivity.class);
-                                BlowActivity.this.startActivity(myIntent);
+                                //Intent myIntent = new Intent(BlowActivity.this, MainActivity.class);
+                                //BlowActivity.this.startActivity(myIntent);
                             }
-                            if(lastLevel > 0 && lastLevel <= 30){
-                                //mouthImage.setImageResource(R.drawable.mouth4);
-                                //nextScreenCounter += 0.1;
-                            }else
-                            if(lastLevel > 30 ){
-                                //startRecording();
-                                result += 0.1;
-                                resultText.setText(String.format("%.2f", result));
-                                //nextScreenCounter = 0;
-                                //mouthImage.setImageResource(R.drawable.mouth1);
+                            else if(lastLevel > 0 && lastLevel <= 50){
+                                mouthImage.setImageResource(R.drawable.gradientone);
+                                nextScreenCounter += 0.1;
+                            }else if(lastLevel > 50 && lastLevel <= 200 ){
+                                currTime = System.currentTimeMillis();
+                                resultText.setText(decimalFormat.format((currTime-startTime)/1000));
+                                mouthImage.setImageResource(R.drawable.gradienttwo);
+                                //result += 0.1;
+                                //resultText.setText(String.format("%.2f", result));
+                            }
+                            else if(lastLevel > 200 && lastLevel <= 300 ){
+                                currTime = System.currentTimeMillis();
+                                resultText.setText(decimalFormat.format((currTime-startTime)/1000));
+                                mouthImage.setImageResource(R.drawable.gradientthree);
+                                //result += 0.1;
+                                //resultText.setText(String.format("%.2f", result));
+                            }
+                            else if(lastLevel > 300 && lastLevel <= 400 ){
+                                currTime = System.currentTimeMillis();
+                                resultText.setText(decimalFormat.format((currTime-startTime)/1000));
+                                mouthImage.setImageResource(R.drawable.gradientfour);
+                                //result += 0.1;
+                                //resultText.setText(String.format("%.2f", result));
+                            }
+                            else if(lastLevel > 400 && lastLevel <= 500 ){
+                                currTime = System.currentTimeMillis();
+                                resultText.setText(decimalFormat.format((currTime-startTime)/1000));
+                                mouthImage.setImageResource(R.drawable.gradientfive);
+                                //result += 0.1;
+                                //resultText.setText(String.format("%.2f", result));
+                            }
+                            else if(lastLevel > 500 ){
+                                currTime = System.currentTimeMillis();
+                                resultText.setText(decimalFormat.format((currTime-startTime)/1000));
+                                mouthImage.setImageResource(R.drawable.gradientsix);
+                                //result += 0.1;
+                                //resultText.setText(String.format("%.2f", result));
                             }
                         }
                     });
@@ -124,6 +148,7 @@ public class BlowActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+
         super.onPause();
         thread.interrupt();
         thread = null;
@@ -134,5 +159,7 @@ public class BlowActivity extends AppCompatActivity {
                 audio = null;
             }
         } catch (Exception e) {e.printStackTrace();}
+        Intent myIntent = new Intent(BlowActivity.this, MainActivity.class);
+        BlowActivity.this.startActivity(myIntent);
     }
 }

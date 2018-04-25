@@ -1,6 +1,7 @@
 package com.example.motionmasters.motionmasters;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -25,6 +26,7 @@ public class StartGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_game);
         tv = (TextView) findViewById(R.id.startGameText);
         int secs = 7;
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         new CountDownTimer((secs + 1) * 1000, 1000) // Wait 5 secs, tick every 1 sec
         {
             @Override

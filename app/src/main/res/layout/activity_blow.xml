@@ -14,50 +14,34 @@
         android:text="Blowmaster "
         android:textSize="40dp" />
 
-    <TextView
-        android:id="@+id/blowMasterSubHeader"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_below="@+id/blowMasterHeader"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="Blow for as long as you can into the microphone"
-        android:textSize="25dp" />
-
-    <!--<ImageView-->
-        <!--android:id="@+id/imageView"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/blowMasterSubHeader"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:src="@drawable/mouth1" />-->
 
     <TextView
         android:id="@+id/resultText"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_alignLeft="@+id/blowMasterSubHeader"
-        android:layout_alignStart="@+id/blowMasterSubHeader"
-        android:layout_below="@+id/blowMasterSubHeader"
+        android:layout_alignLeft="@+id/blowMasterHeader"
+        android:layout_alignStart="@+id/blowMasterHeader"
+        android:layout_below="@+id/blowMasterHeader"
+        android:layout_marginTop="46dp"
         android:gravity="center"
         android:text="0.00"
         android:textSize="35dp" />
 
     <ImageView
-        android:id="@+id/blowmasterImage"
-        android:layout_width="120dp"
-        android:layout_height="240dp"
-        android:layout_above="@+id/resultButton"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/blowmasterimage" />
-
-    <Button
-        android:id="@+id/resultButton"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/windImage"
+        android:layout_alignRight="@+id/windImage"
+        android:layout_below="@+id/resultText"
+        android:src="@drawable/gradientone" />
+
+    <ImageView
+        android:id="@+id/windImage"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="38dp"
-        android:text="Done" />
+        android:src="@drawable/wind" />
 
 </RelativeLayout>
