@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Motionmasters</string>
+<<<<<<< HEAD
     <string name="title_activity_welcome">Home Screen</string>
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
@@ -23,4 +24,12 @@
         <item>Nine</item>
         <item>Ten</item>
     </string-array>
+=======
+    <string name="background">Background</string>
+    <string name="choose_game">Choose a game</string>
+    <string name="blow_master">Blow master</string>
+    <string name="throw_master">Throw master</string>
+    <string name="jump_master">Jump master</string>
+    <string name="check_highscore">Check highscore</string>
+>>>>>>> master
 </resources>
