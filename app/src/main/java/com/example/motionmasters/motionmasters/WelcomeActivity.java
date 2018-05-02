@@ -48,7 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
 
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_scoreoverlay);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
@@ -59,9 +59,9 @@ public class WelcomeActivity extends AppCompatActivity {
         // layouts of all welcome sliders
         // add few more layouts if you want
         layouts = new int[]{
-                R.layout.score_screen1,
-                R.layout.score_screen2,
-                R.layout.score_screen3};
+                R.layout.activity_blowscore,
+                R.layout.activity_jumpscore,
+                R.layout.activity_throwscore};
 
         // adding bottom dots
         addBottomDots(0);
