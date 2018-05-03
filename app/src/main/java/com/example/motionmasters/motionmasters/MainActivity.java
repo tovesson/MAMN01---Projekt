@@ -16,6 +16,15 @@ public class MainActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        Button blowMasterButton = findViewById(R.id.blowMasterButton);
+        blowMasterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), BlowActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Button jumpMasterButton = findViewById(R.id.jumpMasterButton);
         jumpMasterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,5 +52,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }

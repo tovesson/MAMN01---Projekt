@@ -27,7 +27,6 @@ public class BlowActivity extends AppCompatActivity {
     private double currTime;
     private DecimalFormat decimalFormat;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +46,6 @@ public class BlowActivity extends AppCompatActivity {
         } catch (Exception e) {
             android.util.Log.e("TrackingFlow", "Exception", e);
         }
-
     }
 
     protected void onResume() {
@@ -128,7 +126,6 @@ public class BlowActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-
         super.onPause();
         thread.interrupt();
         thread = null;
