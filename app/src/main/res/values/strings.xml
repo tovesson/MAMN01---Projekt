@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Motionmasters</string>
+    <string name="jumpmaster_header">Jumpmaster</string>
+    <string name="jumpmaster_subheader">Jump as high as you can</string>
+    <string name="jumpmaster_result">Result:</string>
+
     <string name="title_activity_start_game">StartGameActivity</string>
     <string name="title_activity_welcome">Home Screen</string>
     <string name="throwtxt">Throw</string>
