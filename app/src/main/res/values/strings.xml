@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Motionmasters</string>
+    <string name="jumpmaster_header">Jumpmaster</string>
+    <string name="jumpmaster_subheader">Jump as high as you can</string>
+    <string name="jumpmaster_result">Result:</string>
+
+    <string name="title_activity_start_game">StartGameActivity</string>
     <string name="title_activity_welcome">Home Screen</string>
     <string name="throwtxt">Throw</string>
     <string name="jumptxt">Jump</string>
@@ -26,10 +31,13 @@
         <item>Nine</item>
         <item>Ten</item>
     </string-array>
+    <string name="done">Done</string>
     <string name="background">Background</string>
+    <string name="throw_image">Throw image</string>
     <string name="choose_game">Choose a game</string>
     <string name="blow_master">Blow master</string>
     <string name="throw_master">Throw master</string>
+    <string name="throw_master_description">Throw as long as you can</string>
     <string name="jump_master">Jump master</string>
     <string name="check_highscore">Check highscore</string>
 </resources>
