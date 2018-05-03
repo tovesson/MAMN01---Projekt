@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         blowMasterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), BlowActivity.class);
+                Intent intent = new Intent(v.getContext(), StartGameActivity.class);
                 startActivity(intent);
             }
         });

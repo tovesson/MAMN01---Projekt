@@ -36,6 +36,7 @@ public class BlowActivity extends AppCompatActivity {
         resultText = (TextView) findViewById(R.id.resultText);
         result = 0;
         nextScreenCounter = 0;
+        startTime = System.currentTimeMillis();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         decimalFormat = new DecimalFormat("0.00");
 
