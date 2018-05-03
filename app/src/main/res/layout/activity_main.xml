@@ -34,20 +34,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/blowButton"
+        android:id="@+id/blowMasterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BlowMaster Game"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="138dp" />
-
-    <Button
-        android:id="@+id/jumpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="JumpMaster Game"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="199dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/blow_master"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/jumpMasterButton"

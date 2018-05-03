@@ -5,11 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
 public class StartGameActivity extends AppCompatActivity {
@@ -30,10 +26,9 @@ public class StartGameActivity extends AppCompatActivity {
         new CountDownTimer((secs + 1) * 1000, 1000) // Wait 5 secs, tick every 1 sec
         {
             @Override
-            public final void onTick(final long millisUntilFinished)
-            {
+            public final void onTick(final long millisUntilFinished) {
                 switchSec = (int) (millisUntilFinished * .001f);
-                switch(switchSec) {
+                switch (switchSec) {
                     case 7:
                         tv.setText("Blowmaster");
                         break;
@@ -60,9 +55,9 @@ public class StartGameActivity extends AppCompatActivity {
                         break;
                 }
             }
+
             @Override
-            public final void onFinish()
-            {
+            public final void onFinish() {
                 Intent myIntent = new Intent(StartGameActivity.this, BlowActivity.class);
                 StartGameActivity.this.startActivity(myIntent);
             }
