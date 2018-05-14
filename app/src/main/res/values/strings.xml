@@ -42,4 +42,5 @@
     <string name="throw_master_description">Throw as long as you can</string>
     <string name="jump_master">Jump master</string>
     <string name="check_highscore">Scoreboard</string>
+    <string name="caution">Please use caution! \n Don’t acutally throw the phone</string>
 </resources>
