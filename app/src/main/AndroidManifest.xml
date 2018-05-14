@@ -33,7 +33,11 @@
             android:name=".ThrowActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StartGameActivity"
+            android:name=".StartGameActivityBlow"
+            android:label="@string/title_activity_start_game"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StartGameActivityJump"
             android:label="@string/title_activity_start_game"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".WelcomeActivity" />
