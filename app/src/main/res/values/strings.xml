@@ -12,6 +12,7 @@
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
+    <string name="resetbtn">Jump Again</string>
 
     <string name="slide_1_title">Blowmaster Score</string>
 
@@ -31,6 +32,7 @@
         <item>Nine</item>
         <item>Ten</item>
     </string-array>
+    <string name="Start">Start</string>
     <string name="done">Done</string>
     <string name="background">Background</string>
     <string name="throw_image">Throw image</string>
