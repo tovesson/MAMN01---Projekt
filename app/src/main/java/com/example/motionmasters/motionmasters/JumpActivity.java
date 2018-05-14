@@ -74,7 +74,7 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         if(clicked)
         {
             jumpNow = true;
-            resultTxt.setText("Result: " + 0);
+            resultTxt.setText("Result: " + 0 + "m");
             clicked = false;
         }
 
