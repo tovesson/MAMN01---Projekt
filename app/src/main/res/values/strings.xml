@@ -39,5 +39,5 @@
     <string name="throw_master">Throw master</string>
     <string name="throw_master_description">Throw as long as you can</string>
     <string name="jump_master">Jump master</string>
-    <string name="check_highscore">Check highscore</string>
+    <string name="check_highscore">Scoreboard</string>
 </resources>
