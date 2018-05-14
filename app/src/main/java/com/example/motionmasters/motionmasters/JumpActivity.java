@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -36,6 +35,7 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
 
 
     private TextView resultTxt;
+    private TextView scoreResultTxt;
     private Button reset;
 
     @Override
@@ -55,8 +55,12 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         }
 
         acc_values = new ArrayList<Double>();
+        for(int i = 0; i < bufferSize; i++) {
+            acc_values.add(deltaY);
+        }
 
         resultTxt = findViewById(R.id.jumpmaster_result);
+        scoreResultTxt = findViewById(R.id.jump_ingameres);
         reset = findViewById(R.id.jump_reset);
     }
 
@@ -66,7 +70,6 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void onSensorChanged(SensorEvent event) {
-
         //my button clic
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,14 +102,19 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
             acc_values.add(deltaY);
         }
 
-        max_value = Collections.max(acc_values);
 
-        if (max_value > 15 && jumpNow) {
+
+                max_value = Collections.max(acc_values);
+
+
+
+        if (max_value > 10 && jumpNow) {
             velocity = ((max_value) * time);
             air_time = (0 - velocity) / (-9.8);
             height = ((velocity * air_time) + (-9.8 * Math.pow(air_time, 2)) / 2);
-            double vis_height = (double) Math.round(height * 100) / 100;
+            double vis_height = (double) Math.round(height * 1000) / 1000;
             resultTxt.setText("Result: " + vis_height + "m");
+            scoreResultTxt.setText("Result: " + vis_height + "m");
             for (int i = 0; i<bufferSize;i++) {
                 Log.d("ADebugTag", "Value: " + Double.toString(acc_values.get(i)));
             }
