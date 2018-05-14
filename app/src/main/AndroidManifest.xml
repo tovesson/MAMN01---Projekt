@@ -21,8 +21,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait" />
+        android:name=".MainActivity"
+        android:screenOrientation="portrait" />
         <activity
             android:name=".BlowActivity"
             android:screenOrientation="portrait" />
@@ -41,6 +41,8 @@
             android:label="@string/title_activity_start_game"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".WelcomeActivity" />
+
+
 
         <meta-data
             android:name="preloaded_fonts"

@@ -38,29 +38,29 @@
 
     <Button
         android:id="@+id/doneButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_width="121dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="64dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:background="@color/Carrot"
         android:fontFamily="@font/roboto_bold"
-        android:text="@string/Start"
+        android:text="HOLD"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="248dp"
-        android:layout_height="335dp"
+        android:layout_width="184dp"
+        android:layout_height="255dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintHorizontal_bias="0.429"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/throwMasterSubtitle"
         app:srcCompat="@drawable/throw_image" />
@@ -79,8 +79,24 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/doneButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="@string/caution" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="99dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/Carrot"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Add result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doneButton" />
 
 </android.support.constraint.ConstraintLayout>
