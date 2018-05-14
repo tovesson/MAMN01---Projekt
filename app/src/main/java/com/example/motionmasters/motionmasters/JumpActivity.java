@@ -34,6 +34,7 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
     private double lastY;
 
 
+
     private TextView resultTxt;
     private TextView scoreResultTxt;
     private Button reset;
@@ -43,6 +44,15 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jump);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        Button addBtn =  findViewById(R.id.add_result_jump);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                setContentView(R.layout.activity_ingamescore_jump);
+
+            }
+        });
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -86,6 +96,9 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
             clicked = false;
         }
 
+
+
+
         // get the change of the x,y,z values of the accelerometer
 
         deltaY = Math.abs(lastY - event.values[1]);
@@ -114,7 +127,7 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
             height = ((velocity * air_time) + (-9.8 * Math.pow(air_time, 2)) / 2);
             double vis_height = (double) Math.round(height * 1000) / 1000;
             resultTxt.setText("Result: " + vis_height + "m");
-            scoreResultTxt.setText("Result: " + vis_height + "m");
+
             for (int i = 0; i<bufferSize;i++) {
                 Log.d("ADebugTag", "Value: " + Double.toString(acc_values.get(i)));
             }

@@ -17,7 +17,7 @@ public class StartGameActivityJump extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game_jump);
         tv = findViewById(R.id.startGameText);
-        int secs = 2;
+        int secs = 0;
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         new CountDownTimer((secs + 1) * 1000, 1000) // Wait 5 secs, tick every 1 sec
         {

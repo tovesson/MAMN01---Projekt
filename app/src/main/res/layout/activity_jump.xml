@@ -52,10 +52,9 @@
 
     <TextView
         android:id="@+id/jumpmaster_result"
-        android:layout_width="337dp"
+        android:layout_width="251dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@null"
@@ -64,11 +63,9 @@
         android:inputType="textPersonName"
         android:text="@string/jumpmaster_result"
         android:textColor="@color/white"
-        android:textSize="40dp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.983" />
@@ -77,29 +74,42 @@
         android:id="@+id/jump_reset"
         android:layout_width="112dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="148dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="8dp"
         android:background="@color/Carrot"
         android:text="@string/resetbtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintHorizontal_bias="0.438"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="269dp"
-        android:layout_height="350dp"
+        android:layout_width="202dp"
+        android:layout_height="301dp"
+        android:layout_marginBottom="156dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/jumpmaster_result"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.445"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jumpmaster_subheader"
         app:srcCompat="@drawable/jump_screen" />
+
+    <Button
+        android:id="@+id/add_result_jump"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
+        android:background="@color/Carrot"
+        android:fontFamily="@font/roboto_bold"
+        android:text="ADD RESULT"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/jumpmaster_result" />
 
 </android.support.constraint.ConstraintLayout>
