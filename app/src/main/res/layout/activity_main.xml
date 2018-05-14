@@ -6,79 +6,106 @@
     android:layout_height="match_parent"
     tools:context="com.example.motionmasters.motionmasters.MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/background"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="116dp"
+        android:fontFamily="@font/roboto_bold"
         android:text="@string/choose_game"
         android:textAlignment="textStart"
-        android:textColor="#fff"
-        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/blowMasterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:layout_marginBottom="132dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:background="@color/buttonColor"
+        android:drawableTop="@drawable/ic_blowicon"
+        android:fontFamily="@font/roboto_bold"
         android:text="@string/blow_master"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/highscoreButton"
+        app:layout_constraintHorizontal_bias="0.328"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/jumpMasterButton"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="220dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/buttonColor"
+        android:drawableTop="@drawable/ic_jumpicon"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/jump_master"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/blowMasterButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/jumpMasterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/jump_master"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blowMasterButton" />
-
-    <Button
         android:id="@+id/throwMasterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/buttonColor"
+        android:drawableTop="@drawable/ic_throwicon"
+        android:fontFamily="@font/roboto_bold"
         android:text="@string/throw_master"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/highscoreButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jumpMasterButton" />
+        app:layout_constraintStart_toEndOf="@+id/jumpMasterButton"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/highscoreButton"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:layout_marginBottom="132dp"
+        android:layout_marginEnd="52dp"
+        android:background="@color/buttonColor"
+        android:drawableTop="@drawable/ic_scoreboardicon"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/check_highscore"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="@string/check_highscore"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Motion Masters"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
