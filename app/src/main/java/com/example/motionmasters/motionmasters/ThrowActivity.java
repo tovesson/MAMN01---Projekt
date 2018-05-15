@@ -1,5 +1,6 @@
 package com.example.motionmasters.motionmasters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
@@ -7,13 +8,17 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.os.Vibrator;
 
 import java.util.ArrayList;
 
@@ -35,6 +40,10 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
     private TextView throwImageText;
     private Button startThrowGameButton;
     private Button throwButtonDone;
+    private RadioButton radioButton1;
+    private RadioButton radioButton2;
+    private RadioGroup radioGroup;
+    private int rightHand;
 
 
     @Override
@@ -47,8 +56,13 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
         final TextView throwMasterSubtitle = findViewById(R.id.throwMasterSubtitle);
         final ImageView throwImage = findViewById(R.id.imageView2);
         throwImageText = findViewById(R.id.textView6);
+        radioButton1 = findViewById(R.id.radioButton1);
+        radioButton2 = findViewById(R.id.radioButton2);
+        radioGroup = findViewById(R.id.rbGroup);
         SensorManager mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        rightHand = -1;
+
         //Register listener and set sensor_delay to 100ms
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL / 100);
         throwButtonDone = findViewById(R.id.throwButtonDone);
@@ -57,15 +71,23 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
         startThrowGameButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    accValues.clear();
-                    xAcc = 0;
-                    yAcc = 0;
-                    zAcc = 0;
-                    buttonDown = true;
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    buttonDown = false;
-                    calcAngle(accValues);
+                if(rightHand != -1) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        accValues.clear();
+                        xAcc = 0;
+                        yAcc = 0;
+                        zAcc = 0;
+                        buttonDown = true;
+                        vibrate();
+                    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                        buttonDown = false;
+                        calcAngle(accValues);
+                        vibrate();
+                    }
+                    return true;
+                }else{
+                    throwImageText.setTextSize(25);
+                    throwImageText.setText("Chose a throwing hand before throwing");
                 }
                 return true;
             }
@@ -79,6 +101,21 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
             }
         });
 
+        radioButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rightHand = 1;
+            }
+        });
+
+        radioButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rightHand = 0;
+            }
+        });
+
+
         new CountDownTimer((2) * 1000, 1000) // Wait 5 secs, tick every 1 sec
         {
             @Override
@@ -87,6 +124,7 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
                 startThrowGameButton.setVisibility(View.INVISIBLE);
                 throwMasterSubtitle.setVisibility(View.INVISIBLE);
                 throwImageText.setVisibility(View.INVISIBLE);
+                radioGroup.setVisibility(View.INVISIBLE);
 
             }
 
@@ -95,12 +133,18 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
                 startThrowGameButton.setVisibility(View.VISIBLE);
                 throwMasterSubtitle.setVisibility(View.VISIBLE);
                 throwImageText.setVisibility(View.VISIBLE);
+                radioGroup.setVisibility(View.VISIBLE);
 
             }
 
         }.start();
     }
 
+
+    public void vibrate(){
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(200);
+    }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -115,28 +159,42 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
             gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
 
             //With low pass filtering
-            //linear_acceleration[0] = event.values[0] - gravity[0];
-            //linear_acceleration[1] = event.values[1] - gravity[1];
-            //linear_acceleration[2] = event.values[2] - gravity[2];
+            linear_acceleration[0] = event.values[0] - gravity[0];
+            linear_acceleration[1] = event.values[1] - gravity[1];
+            linear_acceleration[2] = event.values[2] - gravity[2];
 
             //Without low pass filtering
-            linear_acceleration[0] = event.values[0];
-            linear_acceleration[1] = event.values[1];
-            linear_acceleration[2] = event.values[2];
+            //linear_acceleration[0] = event.values[0];
+            //linear_acceleration[1] = event.values[1];
+            //linear_acceleration[2] = event.values[2];
             accValues.add(linear_acceleration);
+
+            throwImageText.setText(Float.toString(linear_acceleration[0]));
+
         }
     }
 
     public void calcAngle(ArrayList<float[]> values){
         for(int i = 0; i < values.size(); i++){
-            xAcc += values.get(i)[0];
-            yAcc += values.get(i)[1];
-            zAcc += values.get(i)[2];
+            if(rightHand == 1) {
+                if (values.get(i)[0] > 0) {
+                    xAcc += values.get(i)[0];
+                }
+                if (values.get(i)[1] > 0) {
+                    yAcc += values.get(i)[1];
+                }
+            }else if(rightHand == 0){
+                if (values.get(i)[0] < 0) {
+                    xAcc += values.get(i)[0];
+                }
+                if (values.get(i)[1] < 0) {
+                    yAcc += values.get(i)[1];
+                }
+            }
         }
         //Should be divided by values.size() to get the average acceleration, but values will be to low.
         xAcc = Math.abs(xAcc);
         yAcc = Math.abs(yAcc);
-        zAcc = Math.abs(zAcc);
         totAcc = xAcc + yAcc ;
         //calculate the angle as a percentage of the acceleration in x compared to the total (in x and y direction) acceleration.
         angle = 90 - Math.abs(((xAcc / totAcc) * 90));
@@ -150,6 +208,9 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
             double totHeight = throwHeight + maxHeight;
             double totAirTime = Math.sqrt(totHeight * 2 / 9.82) + maxHeightTime;
             double distance = velocity * Math.cos(Math.toRadians(angle)) * totAirTime;
+            if(Double.isNaN(distance)){
+                distance = 0.0;
+            }
             throwImageText.setTextSize(25);
             throwImageText.setText("Distance thrown" + "\n" + String.format("%.2f", distance) + "meter");
             startThrowGameButton.setVisibility(View.INVISIBLE);

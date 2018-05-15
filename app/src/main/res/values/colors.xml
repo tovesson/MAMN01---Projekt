@@ -23,6 +23,7 @@
     <color name="text_color_primary">#ffffff</color>
     <color name="Carrot">#e67e22</color>
 
+
     <array name="array_dot_active">
         <item>@color/dot_light_screen1</item>
         <item>@color/dot_light_screen2</item>
