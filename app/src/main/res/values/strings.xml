@@ -43,4 +43,7 @@
     <string name="jump_master">Jump master</string>
     <string name="check_highscore">Scoreboard</string>
     <string name="caution">Please use caution! \n Don’t acutally throw the phone</string>
+
+    <string name="blow_master_description">Blow as long as you can into the microphone</string>
+
 </resources>

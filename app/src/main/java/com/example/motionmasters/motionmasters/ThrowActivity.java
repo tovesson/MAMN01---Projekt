@@ -47,13 +47,11 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
         final TextView throwMasterSubtitle = findViewById(R.id.throwMasterSubtitle);
         final ImageView throwImage = findViewById(R.id.imageView2);
         throwImageText = findViewById(R.id.textView6);
-        gyroText = (TextView) findViewById(R.id.throwText);
         SensorManager mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         //Register listener and set sensor_delay to 100ms
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL / 100);
         throwButtonDone = findViewById(R.id.throwButtonDone);
-        Button throwButton = findViewById(R.id.throwButton);
         accValues = new ArrayList<float[]>();
 
         startThrowGameButton.setOnTouchListener(new View.OnTouchListener() {
