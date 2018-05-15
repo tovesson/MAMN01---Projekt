@@ -42,8 +42,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".WelcomeActivity" />
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> blow-master-countdown
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.motionmasters.motionmasters.ThrowActivity">
 
-    <!--<TextView
+    <TextView
         android:id="@+id/throwMasterTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,20 +32,32 @@
         android:text="@string/throw_master_description"
         android:textColor="@color/white"
         android:textSize="24sp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/throwMasterTitle" />
 
     <Button
-        android:id="@+id/doneButton"
+        android:id="@+id/startThrowGameButton"
         android:layout_width="121dp"
         android:layout_height="71dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:background="@color/Carrot"
         android:fontFamily="@font/roboto_bold"
-        android:text="HOLD"
+        app:layout_constraintStart_toStartOf="parent" />-->
+
+    <Button
+        android:id="@+id/throwButtonDone"
+        android:layout_width="121dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/buttonColor"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Done"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,40 +89,14 @@
         android:text="@string/caution"
         android:textAlignment="center"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/doneButton"
+        app:layout_constraintBottom_toTopOf="@+id/startThrowGameButton"
         app:layout_constraintEnd_toEndOf="parent"
-<<<<<<< HEAD
-        app:layout_constraintStart_toStartOf="parent" />-->
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="@string/caution" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/textTest"
-        android:text="Test"
-        />
 
-    <Button
-        android:id="@+id/startThrowButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/done"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/throwButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:text="Throw"
-        app:layout_constraintBottom_toTopOf="@id/startThrowButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

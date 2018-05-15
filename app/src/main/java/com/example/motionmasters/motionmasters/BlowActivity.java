@@ -7,6 +7,8 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,12 +28,15 @@ public class BlowActivity extends AppCompatActivity {
     private double startTime;
     private double currTime;
     private DecimalFormat decimalFormat;
+    private boolean gameEnded = false;
+    private Button doneButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blow);
         mouthImage = (ImageView) findViewById(R.id.imageView);
+        doneButton = (Button) findViewById(R.id.blowMasterDoneButton);
         mouthImage.setKeepScreenOn(true);
         resultText = (TextView) findViewById(R.id.resultText);
         result = 0;
@@ -47,6 +52,14 @@ public class BlowActivity extends AppCompatActivity {
         } catch (Exception e) {
             android.util.Log.e("TrackingFlow", "Exception", e);
         }
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     protected void onResume() {
@@ -57,46 +70,47 @@ public class BlowActivity extends AppCompatActivity {
         audio.startRecording();
         thread = new Thread(new Runnable() {
             public void run() {
-                while (thread != null && !thread.isInterrupted()) {
-                    try {
-                        Thread.sleep(SAMPLE_DELAY);
-                    } catch (InterruptedException ie) {
-                        ie.printStackTrace();
-                    }
-                    readAudioBuffer();
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (nextScreenCounter > 2.0) {
-                                Intent myIntent = new Intent(BlowActivity.this, MainActivity.class);
-                                BlowActivity.this.startActivity(myIntent);
-                            } else if (lastLevel > 0 && lastLevel <= 50) {
-                                mouthImage.setImageResource(R.drawable.gradientone);
-                                nextScreenCounter += 0.1;
-                            } else if (lastLevel > 50 && lastLevel <= 200) {
-                                currTime = System.currentTimeMillis();
-                                resultText.setText(decimalFormat.format((currTime - startTime) / 1000));
-                                mouthImage.setImageResource(R.drawable.gradienttwo);
-                            } else if (lastLevel > 200 && lastLevel <= 300) {
-                                currTime = System.currentTimeMillis();
-                                resultText.setText(decimalFormat.format((currTime - startTime) / 1000));
-                                mouthImage.setImageResource(R.drawable.gradientthree);
-                            } else if (lastLevel > 300 && lastLevel <= 400) {
-                                currTime = System.currentTimeMillis();
-                                resultText.setText(decimalFormat.format((currTime - startTime) / 1000));
-                                mouthImage.setImageResource(R.drawable.gradientfour);
-                            } else if (lastLevel > 400 && lastLevel <= 500) {
-                                currTime = System.currentTimeMillis();
-                                resultText.setText(decimalFormat.format((currTime - startTime) / 1000));
-                                mouthImage.setImageResource(R.drawable.gradientfive);
-                            } else if (lastLevel > 500) {
-                                currTime = System.currentTimeMillis();
-                                resultText.setText(decimalFormat.format((currTime - startTime) / 1000));
-                                mouthImage.setImageResource(R.drawable.gradientsix);
-                            }
+                if (!gameEnded) {
+                    while (thread != null && !thread.isInterrupted()) {
+                        try {
+                            Thread.sleep(SAMPLE_DELAY);
+                        } catch (InterruptedException ie) {
+                            ie.printStackTrace();
                         }
-                    });
+                        readAudioBuffer();
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (nextScreenCounter > 2.0) {
+                                    gameEnded = true;
+                                } else if (lastLevel > 0 && lastLevel <= 50) {
+                                    mouthImage.setImageResource(R.drawable.gradientone);
+                                    nextScreenCounter += 0.1;
+                                } else if (lastLevel > 50 && lastLevel <= 200) {
+                                    currTime = System.currentTimeMillis();
+                                    resultText.setText(decimalFormat.format((currTime - startTime) / 1000));
+                                    mouthImage.setImageResource(R.drawable.gradienttwo);
+                                } else if (lastLevel > 200 && lastLevel <= 300) {
+                                    currTime = System.currentTimeMillis();
+                                    resultText.setText(decimalFormat.format((currTime - startTime) / 1000));
+                                    mouthImage.setImageResource(R.drawable.gradientthree);
+                                } else if (lastLevel > 300 && lastLevel <= 400) {
+                                    currTime = System.currentTimeMillis();
+                                    resultText.setText(decimalFormat.format((currTime - startTime) / 1000));
+                                    mouthImage.setImageResource(R.drawable.gradientfour);
+                                } else if (lastLevel > 400 && lastLevel <= 500) {
+                                    currTime = System.currentTimeMillis();
+                                    resultText.setText(decimalFormat.format((currTime - startTime) / 1000));
+                                    mouthImage.setImageResource(R.drawable.gradientfive);
+                                } else if (lastLevel > 500) {
+                                    currTime = System.currentTimeMillis();
+                                    resultText.setText(decimalFormat.format((currTime - startTime) / 1000));
+                                    mouthImage.setImageResource(R.drawable.gradientsix);
+                                }
+                            }
+                        });
+                    }
                 }
             }
         });

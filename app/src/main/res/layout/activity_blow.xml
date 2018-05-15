@@ -11,8 +11,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="Blowmaster "
-        android:textSize="40dp" />
+        android:text="@string/blow_master"
+        android:textColor="@color/white"
+        android:textSize="36sp"/>
 
 
     <TextView
@@ -24,8 +25,9 @@
         android:layout_below="@+id/blowMasterHeader"
         android:layout_marginTop="46dp"
         android:gravity="center"
-        android:text="0.00"
-        android:textSize="35dp" />
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:text="0.00" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -43,5 +45,19 @@
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
         android:src="@drawable/wind" />
+
+    <Button
+        android:id="@+id/blowMasterDoneButton"
+        android:layout_width="121dp"
+        android:layout_height="71dp"
+        android:layout_below="@+id/windImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:background="@color/buttonColor"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Done"
+        android:textSize="18sp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp" />
 
 </RelativeLayout>

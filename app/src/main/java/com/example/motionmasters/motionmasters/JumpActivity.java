@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.text.DecimalFormat;
 
 public class JumpActivity extends AppCompatActivity implements SensorEventListener {
     private double height;
@@ -37,6 +38,14 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
 
     private TextView resultTxt;
     private TextView scoreResultTxt;
+    private boolean clicked=false;
+    private double[] height_array;
+
+    private float deltaY = 0;
+    private float lastY;
+
+
+    private TextView resultTxt;
     private Button reset;
 
     @Override
@@ -45,6 +54,7 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_jump);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+<<<<<<< HEAD
         Button addBtn =  findViewById(R.id.add_result_jump);
         addBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -54,6 +64,8 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
+=======
+>>>>>>> blow-master-countdown
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             // success! we have an accelerometer
@@ -64,6 +76,7 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
             // fai! we dont have an accelerometer!
         }
 
+<<<<<<< HEAD
         acc_values = new ArrayList<Double>();
         for(int i = 0; i < bufferSize; i++) {
             acc_values.add(deltaY);
@@ -71,6 +84,9 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
 
         resultTxt = findViewById(R.id.jumpmaster_result);
         scoreResultTxt = findViewById(R.id.jump_ingameres);
+=======
+        resultTxt = findViewById(R.id.jumpmaster_result);
+>>>>>>> blow-master-countdown
         reset = findViewById(R.id.jump_reset);
     }
 
@@ -79,6 +95,7 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
+<<<<<<< HEAD
     public void onSensorChanged(SensorEvent event) {
         //my button clic
         reset.setOnClickListener(new View.OnClickListener() {
@@ -86,19 +103,38 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
             public void onClick(View v) {
                 //change boolean value
                 clicked = true;
+=======
+    public void onSensorChanged(SensorEvent event){
+
+        //my button clic
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                //change boolean value
+                clicked=true;
+>>>>>>> blow-master-countdown
             }
         });
 
         //then on another method or where you want
+<<<<<<< HEAD
         if (clicked) {
+=======
+        if(clicked)
+        {
+>>>>>>> blow-master-countdown
             jumpNow = true;
             resultTxt.setText("Result: " + 0 + "m");
             clicked = false;
         }
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> blow-master-countdown
         // get the change of the x,y,z values of the accelerometer
 
         deltaY = Math.abs(lastY - event.values[1]);
@@ -108,6 +144,7 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         // set the last know values of x,y,z
         lastY = event.values[1];
 
+<<<<<<< HEAD
         if(acc_values.size() == bufferSize) {
             acc_values.remove(bufferSize - 1);
             acc_values.add(deltaY);
@@ -131,6 +168,15 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
             for (int i = 0; i<bufferSize;i++) {
                 Log.d("ADebugTag", "Value: " + Double.toString(acc_values.get(i)));
             }
+=======
+
+        if(deltaY > 15 && jumpNow) {
+            velocity = ((deltaY) * time);
+            air_time = (0 - velocity) / (-9.8);
+            height = ((velocity * air_time) + (-9.8 * Math.pow(air_time, 2)) / 2);
+            double vis_height = (double) Math.round(height * 100) / 100;
+            resultTxt.setText("Result: " + vis_height +"m");
+>>>>>>> blow-master-countdown
             jumpNow = false;
         }
     }

@@ -49,8 +49,10 @@
     <string name="choose_game">Choose a game</string>
     <string name="blow_master">Blow master</string>
     <string name="throw_master">Throw master</string>
-    <string name="throw_master_description">Throw as long as you can</string>
+    <string name="throw_master_description">Throw as long as you can!\n1. Hold down the button\n2. \"Throw\"  the phone\n3. Release the button</string>
     <string name="jump_master">Jump master</string>
     <string name="check_highscore">Scoreboard</string>
     <string name="caution">Please use caution! \n Don’t acutally throw the phone</string>
+    <string name="blow_master_description">Blow as long as you can into the microphone</string>
+
 </resources>

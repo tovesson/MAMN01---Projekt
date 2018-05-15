@@ -6,160 +6,165 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.TreeMap;
 
 
 public class ThrowActivity extends AppCompatActivity implements SensorEventListener
 {
     private TextView gyroText;
-    private SensorManager sManager;
-    private TreeMap<Double, ArrayList<Integer>> valueArray;
-    private int counter;
+    private float[] gravity = new float[3];
+    private float[] linear_acceleration = new float[3];
+    private boolean buttonDown = false;
+    private ArrayList<float[]> accValues;
+    private float xAcc;
+    private float yAcc;
+    private float zAcc;
+    private float totAcc;
+    private float angle;
     private double velocity;
-    private double angle;
-    private double time;
-    private double timestamp;
-    private ArrayList list;
-    private long lastDown;
-    private long lastDuration;
-    private ArrayList startValues;
-    private ArrayList endValues;
-    private SensorEvent clickEvent;
+    private double yVelocity;
+    private TextView throwImageText;
+    private Button startThrowGameButton;
+    private Button throwButtonDone;
+
+
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_throw);
-        gyroText = (TextView) findViewById(R.id.textTest);
-        sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        Button startThrowButton = findViewById(R.id.startThrowButton);
-        Button throwButton = findViewById(R.id.throwButton);
-        throwButton.setOnTouchListener(new View.OnTouchListener() {
+        setContentView(R.layout.activity_throw_start_screen);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        startThrowGameButton = findViewById(R.id.startThrowGameButton);
+        final TextView throwMasterTitle = findViewById(R.id.throwMasterTitle);
+        final TextView throwMasterSubtitle = findViewById(R.id.throwMasterSubtitle);
+        final ImageView throwImage = findViewById(R.id.imageView2);
+        throwImageText = findViewById(R.id.textView6);
+        SensorManager mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        //Register listener and set sensor_delay to 100ms
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL / 100);
+        throwButtonDone = findViewById(R.id.throwButtonDone);
+        accValues = new ArrayList<float[]>();
+
+        startThrowGameButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    lastDown = System.currentTimeMillis();
-                    startValues = list;
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    accValues.clear();
+                    xAcc = 0;
+                    yAcc = 0;
+                    zAcc = 0;
+                    buttonDown = true;
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    lastDuration = System.currentTimeMillis() - lastDown;
-                    endValues = list;
-                    gyroText.setText(Float.toString((Float)startValues.get(0)) + ", " + Float.toString((Float)startValues.get(1)) +", " + Float.toString((Float)endValues.get(0))+ ", " + Float.toString((Float)endValues.get(1)));
-                    //gyroText.setText(Double.toString(calcRotationAngleInDegrees(startValues,endValues)));
+                    buttonDown = false;
+                    calcAngle(accValues);
                 }
                 return true;
             }
         });
 
-        startThrowButton.setOnClickListener(new View.OnClickListener() {
+        throwButtonDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calculateLength();
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
-        counter = 0;
-        velocity = 10;
-        angle = 53;
-        time = 1.6;
-        timestamp = 0;
-        list = new ArrayList<Integer>();
-        valueArray = new TreeMap<Double, ArrayList<Integer>>();
-    }
 
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),SensorManager.SENSOR_DELAY_FASTEST);
-
-    }
-
-    @Override
-    protected void onStop()
-    {
-        sManager.unregisterListener(this);
-        super.onStop();
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor arg0, int arg1)
-    {
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event)
-    {
-        if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE)
+        new CountDownTimer((2) * 1000, 1000) // Wait 5 secs, tick every 1 sec
         {
-            return;
-        }
-        list.clear();
-        System.out.print(list.size());
-        Log.d("time", Integer.toString(list.size()));
-        timestamp = System.currentTimeMillis();
-        //list.add(event.values[2]);
-        list.add(event.values[0]);
-        list.add(event.values[1]);
-        valueArray.put(timestamp,list);
+            @Override
+            public final void onTick(final long millisUntilFinished) {
+                throwButtonDone.setVisibility(View.INVISIBLE);
+                startThrowGameButton.setVisibility(View.INVISIBLE);
+                throwMasterSubtitle.setVisibility(View.INVISIBLE);
+                throwImageText.setVisibility(View.INVISIBLE);
 
-        //gyroText.setText("X value: "+ Float.toString(event.values[2]) +"\n"+
-        //        "Y value: "+ Float.toString(event.values[1]) +"\n"+
-        //        "Z value: "+ Float.toString(event.values[0]));
-    }
+            }
 
-    private double calculateLength(){
-        ArrayList firstValue = valueArray.firstEntry().getValue();
-        ArrayList lastValue = valueArray.lastEntry().getValue();
-        Double startTime = valueArray.firstKey();
-        Double endTime = valueArray.lastKey();
-        time = (endTime-startTime)/1000;
-        double distance = velocity * Math.cos(Math.toRadians(angle)) * time;
-        //gyroText.setText(Double.toString(time));
-        //gyroText.setText((Float)firstValue.get(0) + " " +(Float)firstValue.get(1));
-        return distance;
+            @Override
+            public void onFinish() {
+                startThrowGameButton.setVisibility(View.VISIBLE);
+                throwMasterSubtitle.setVisibility(View.VISIBLE);
+                throwImageText.setVisibility(View.VISIBLE);
+
+            }
+
+        }.start();
     }
 
 
-    public static double calcRotationAngleInDegrees(ArrayList centerPt, ArrayList targetPt)
-    {
-        // calculate the angle theta from the deltaY and deltaX values
-        // (atan2 returns radians values from [-PI,PI])
-        // 0 currently points EAST.
-        // NOTE: By preserving Y and X param order to atan2,  we are expecting
-        // a CLOCKWISE angle direction.
-        double theta = Math.atan2((Float)targetPt.get(0) - (Float)centerPt.get(0), (Float)targetPt.get(1) - (Float)centerPt.get(1));
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        // alpha is calculated as t / (t + dT)
+        // with t, the low-pass filter's time-constant
+        // and dT, the event delivery rate
 
-        // rotate the theta angle clockwise by 90 degrees
-        // (this makes 0 point NORTH)
-        // NOTE: adding to an angle rotates it clockwise.
-        // subtracting would rotate it counter-clockwise
-        theta += Math.PI/2.0;
+        final float alpha = 0.8f;
+        if(buttonDown) {
+            gravity[0] = alpha * gravity[0] + (1 - alpha) * event.values[0];
+            gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1];
+            gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
 
-        // convert from radians to degrees
-        // this will give you an angle from [0->270],[-180,0]
-        double angle = Math.toDegrees(theta);
+            //With low pass filtering
+            //linear_acceleration[0] = event.values[0] - gravity[0];
+            //linear_acceleration[1] = event.values[1] - gravity[1];
+            //linear_acceleration[2] = event.values[2] - gravity[2];
 
-        // convert to positive range [0-360)
-        // since we want to prevent negative angles, adjust them now.
-        // we can assume that atan2 will not return a negative value
-        // greater than one partial rotation
-        if (angle < 0) {
-            angle += 360;
+            //Without low pass filtering
+            linear_acceleration[0] = event.values[0];
+            linear_acceleration[1] = event.values[1];
+            linear_acceleration[2] = event.values[2];
+            accValues.add(linear_acceleration);
         }
+    }
 
-        return angle;
+    public void calcAngle(ArrayList<float[]> values){
+        for(int i = 0; i < values.size(); i++){
+            xAcc += values.get(i)[0];
+            yAcc += values.get(i)[1];
+            zAcc += values.get(i)[2];
+        }
+        //Should be divided by values.size() to get the average acceleration, but values will be to low.
+        xAcc = Math.abs(xAcc);
+        yAcc = Math.abs(yAcc);
+        zAcc = Math.abs(zAcc);
+        totAcc = xAcc + yAcc ;
+        //calculate the angle as a percentage of the acceleration in x compared to the total (in x and y direction) acceleration.
+        angle = 90 - Math.abs(((xAcc / totAcc) * 90));
+        double throwTime = (values.size()*1.0)/100;
+        if(throwTime > 0.3) {
+            velocity = (1.2 / throwTime )+ (xAcc / values.size() )* throwTime;
+            yVelocity = velocity * Math.sin(Math.toRadians(angle));
+            double maxHeightTime = yVelocity / 9.82;
+            double throwHeight = 1.7;
+            double maxHeight = yVelocity * maxHeightTime - (0.5 * 9.82 * Math.pow(maxHeightTime, 2));
+            double totHeight = throwHeight + maxHeight;
+            double totAirTime = Math.sqrt(totHeight * 2 / 9.82) + maxHeightTime;
+            double distance = velocity * Math.cos(Math.toRadians(angle)) * totAirTime;
+            throwImageText.setTextSize(25);
+            throwImageText.setText("Distance thrown" + "\n" + String.format("%.2f", distance) + "meter");
+            startThrowGameButton.setVisibility(View.INVISIBLE);
+            throwButtonDone.setVisibility(View.VISIBLE);
+        }else{
+            throwImageText.setTextSize(25);
+            throwImageText.setText("Hold the button longer during the throw");
+            startThrowGameButton.setVisibility(View.VISIBLE);
+            throwButtonDone.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
     }
 }
 
