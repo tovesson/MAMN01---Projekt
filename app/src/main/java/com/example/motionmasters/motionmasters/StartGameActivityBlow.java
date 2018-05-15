@@ -7,7 +7,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-public class StartGameActivity extends AppCompatActivity {
+public class StartGameActivityBlow extends AppCompatActivity {
 
     private TextView tv;
     private int switchSec;
@@ -15,7 +15,7 @@ public class StartGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_game);
+        setContentView(R.layout.activity_start_game_blow);
         tv = findViewById(R.id.startGameText);
         int secs = 7;
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -54,8 +54,8 @@ public class StartGameActivity extends AppCompatActivity {
 
             @Override
             public final void onFinish() {
-                Intent myIntent = new Intent(StartGameActivity.this, BlowActivity.class);
-                StartGameActivity.this.startActivity(myIntent);
+                Intent myIntent = new Intent(StartGameActivityBlow.this, BlowActivity.class);
+                StartGameActivityBlow.this.startActivity(myIntent);
             }
         }.start();
     }
