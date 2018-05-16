@@ -98,7 +98,7 @@
         app:srcCompat="@drawable/jump_screen" />
 
     <Button
-        android:id="@+id/add_result_jump"
+        android:id="@+id/addResult"
         android:layout_width="106dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"

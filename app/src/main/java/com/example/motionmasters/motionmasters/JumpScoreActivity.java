@@ -1,6 +1,7 @@
 package com.example.motionmasters.motionmasters;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,7 +18,8 @@ public class JumpScoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingamescore_jump);
-        jumpScoreButton = findViewById(R.id.add_result_jump);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        jumpScoreButton = findViewById(R.id.scoreboard_ingame_jump);
 
         jumpScoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
