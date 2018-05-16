@@ -49,7 +49,9 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         addBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                setContentView(R.layout.activity_ingamescore_jump);
+                Intent intent = new Intent(v.getContext(), JumpScoreActivity.class);
+                intent.putExtra("score", "TEST");
+                startActivity(intent);
 
             }
         });
