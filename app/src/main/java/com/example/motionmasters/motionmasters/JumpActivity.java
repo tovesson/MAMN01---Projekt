@@ -22,7 +22,7 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private double velocity;
-    private double time = 0.08;
+    private double time = 0.09;
     private double air_time;
     private boolean jumpNow = true;
     private boolean clicked = false;
@@ -121,11 +121,11 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
 
 
 
-        if (max_value > 10 && jumpNow) {
+        if (max_value > 13 && jumpNow) {
             velocity = ((max_value) * time);
             air_time = (0 - velocity) / (-9.8);
             height = ((velocity * air_time) + (-9.8 * Math.pow(air_time, 2)) / 2);
-            double vis_height = (double) Math.round(height * 1000) / 1000;
+            double vis_height = (double) Math.round(height * 100) / 100;
             resultTxt.setText("Result: " + vis_height + "m");
 
             for (int i = 0; i<bufferSize;i++) {
