@@ -117,7 +117,7 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
 
 
 
-                max_value = Collections.max(acc_values);
+        max_value = Collections.max(acc_values);
 
 
 
