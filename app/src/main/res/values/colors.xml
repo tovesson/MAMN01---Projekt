@@ -11,17 +11,18 @@
     <color name="buttonColor">#239f85</color>
 
     <!-- dots inactive colors -->
-    <color name="dot_dark_screen1">#fff</color>
-    <color name="dot_dark_screen2">#fff</color>
-    <color name="dot_dark_screen3">#fff</color>
+    <color name="dot_dark_screen1">#00775e</color>
+    <color name="dot_dark_screen2">#00775e</color>
+    <color name="dot_dark_screen3">#00775e</color>
 
     <!-- dots active colors -->
-    <color name="dot_light_screen1">#111fff</color>
-    <color name="dot_light_screen2">#111fff</color>
-    <color name="dot_light_screen3">#111fff</color>
+    <color name="dot_light_screen1">#fff</color>
+    <color name="dot_light_screen2">#fff</color>
+    <color name="dot_light_screen3">#fff</color>
     <color name="background_material_light">#29bb9c</color>
     <color name="text_color_primary">#ffffff</color>
     <color name="Carrot">#e67e22</color>
+
 
     <array name="array_dot_active">
         <item>@color/dot_light_screen1</item>

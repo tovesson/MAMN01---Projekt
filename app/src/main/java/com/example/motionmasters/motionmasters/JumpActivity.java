@@ -9,11 +9,13 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class JumpActivity extends AppCompatActivity implements SensorEventListener {
     private double height;
@@ -23,14 +25,18 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
     private double time = 0.08;
     private double air_time;
     private boolean jumpNow = true;
-    private boolean clicked=false;
-    private double[] height_array;
+    private boolean clicked = false;
+    private ArrayList<Double> acc_values;
+    private double max_value;
+    private int bufferSize = 5;
 
-    private float deltaY = 0;
-    private float lastY;
+    private double deltaY = 0;
+    private double lastY;
+
 
 
     private TextView resultTxt;
+    private TextView scoreResultTxt;
     private Button reset;
 
     @Override
@@ -38,6 +44,15 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jump);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        Button addBtn =  findViewById(R.id.add_result_jump);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                setContentView(R.layout.activity_ingamescore_jump);
+
+            }
+        });
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -49,7 +64,13 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
             // fai! we dont have an accelerometer!
         }
 
+        acc_values = new ArrayList<Double>();
+        for(int i = 0; i < bufferSize; i++) {
+            acc_values.add(deltaY);
+        }
+
         resultTxt = findViewById(R.id.jumpmaster_result);
+        scoreResultTxt = findViewById(R.id.jump_ingameres);
         reset = findViewById(R.id.jump_reset);
     }
 
@@ -58,25 +79,25 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    public void onSensorChanged(SensorEvent event){
-
+    public void onSensorChanged(SensorEvent event) {
         //my button clic
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 //change boolean value
-                clicked=true;
+                clicked = true;
             }
         });
 
         //then on another method or where you want
-        if(clicked)
-        {
+        if (clicked) {
             jumpNow = true;
             resultTxt.setText("Result: " + 0 + "m");
             clicked = false;
         }
+
+
+
 
         // get the change of the x,y,z values of the accelerometer
 
@@ -87,13 +108,29 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         // set the last know values of x,y,z
         lastY = event.values[1];
 
+        if(acc_values.size() == bufferSize) {
+            acc_values.remove(bufferSize - 1);
+            acc_values.add(deltaY);
+        } else {
+            acc_values.add(deltaY);
+        }
 
-        if(deltaY > 15 && jumpNow) {
-            velocity = ((deltaY) * time);
+
+
+        max_value = Collections.max(acc_values);
+
+
+
+        if (max_value > 10 && jumpNow) {
+            velocity = ((max_value) * time);
             air_time = (0 - velocity) / (-9.8);
             height = ((velocity * air_time) + (-9.8 * Math.pow(air_time, 2)) / 2);
-            double vis_height = (double) Math.round(height * 100) / 100;
-            resultTxt.setText("Result: " + vis_height +"m");
+            double vis_height = (double) Math.round(height * 1000) / 1000;
+            resultTxt.setText("Result: " + vis_height + "m");
+
+            for (int i = 0; i<bufferSize;i++) {
+                Log.d("ADebugTag", "Value: " + Double.toString(acc_values.get(i)));
+            }
             jumpNow = false;
         }
     }
