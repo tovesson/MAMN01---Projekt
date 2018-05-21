@@ -21,6 +21,7 @@ public class BlowScoreActivity extends AppCompatActivity {
     private double score;
     private String game;
     private DecimalFormat decimalFormat;
+    private HighScoreDatabase helper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,16 +31,21 @@ public class BlowScoreActivity extends AppCompatActivity {
         blowScoreButton = findViewById(R.id.blowScoreButton);
         decimalFormat = new DecimalFormat("0.00");
         game = "Blowmaster";
-        Intent recieveIntent = getIntent();
-        score = recieveIntent.getDoubleExtra("score", 0.0);
+        Intent receiveIntent = getIntent();
+        score = receiveIntent.getDoubleExtra("score", 0.0);
         result.setText("You blew for: " + decimalFormat.format((score) / 1000));
+        helper = new HighScoreDatabase(this);
+
 
         blowScoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BlowScoreActivity.this, WelcomeActivity.class);
+
+                Intent intent = new Intent(BlowScoreActivity.this, HighScoreActivity.class);
                 intent.putExtra("score",score);
-                intent.putExtra("name",name.getText());
+                intent.putExtra("name",name.getText().toString());
+                intent.putExtra("game",game);
+                helper.insertData(name.getText().toString(), score, game);
                 startActivity(intent);
             }
         });

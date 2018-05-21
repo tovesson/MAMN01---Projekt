@@ -31,9 +31,11 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
     private double max_value;
     private int bufferSize = 5;
     private boolean highValue;
+    private double vis_height;
 
     private double deltaY = 0;
     private double lastY;
+    private boolean haveJumped;
 
     private MediaPlayer mediaPlayer;
 
@@ -41,10 +43,10 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
 
     private TextView resultTxt;
     private TextView scoreResultTxt;
-    private Button reset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        haveJumped = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jump);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -53,9 +55,13 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         addBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), JumpScoreActivity.class);
-                intent.putExtra("score", "TEST");
-                startActivity(intent);
+                if(haveJumped) {
+                    Intent intent = new Intent(v.getContext(), JumpScoreActivity.class);
+                    startActivity(intent);
+                }else{
+                    resultTxt.setTextSize(20);
+                    resultTxt.setText("You have not jumped yet");
+                }
 
             }
         });
@@ -78,7 +84,6 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
 
         resultTxt = findViewById(R.id.jumpmaster_result);
         scoreResultTxt = findViewById(R.id.jump_ingameres);
-        reset = findViewById(R.id.jump_reset);
         highValue = false;
         acc_values.clear();
     }
@@ -90,13 +95,6 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
 
     public void onSensorChanged(SensorEvent event) {
 
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                clicked = true;
-            }
-        });
 
         if (clicked) {
             jumpNow = true;
@@ -131,14 +129,16 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
                velocity = ((max_value) * time);
                air_time = (0 - velocity) / (-9.8);
                height = ((velocity * air_time) + (-9.8 * Math.pow(air_time, 2)) / 2);
-               double vis_height = (double) Math.round(height * 100) / 100;
+               vis_height = (double) Math.round(height * 100) / 100;
 
                acc_values.clear();
 
                jumpNow = false;
                highValue = false;
 
+               resultTxt.setTextSize(36);
                resultTxt.setText("Result: " + vis_height + "m");
+               haveJumped = true;
            }
         }
     }
@@ -154,6 +154,7 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
         sensorManager.unregisterListener(this);
 
         Intent myIntent = new Intent(JumpActivity.this, JumpScoreActivity.class);
+        myIntent.putExtra("score", vis_height);
         JumpActivity.this.startActivity(myIntent);
     }
 }

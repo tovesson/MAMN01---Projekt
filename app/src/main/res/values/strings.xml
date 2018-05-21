@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Motionmasters</string>
     <string name="jumpmaster_header">Jumpmaster</string>
-    <string name="jumpmaster_subheader">Jump as high as you can</string>
+    <string name="jumpmaster_subheader">Jump as high as you can!</string>
     <string name="jumpmaster_result">Result:</string>
 
     <string name="title_activity_start_game">StartGameActivity</string>
@@ -14,11 +14,11 @@
     <string name="start">GOT IT</string>
     <string name="resetbtn">Jump Again</string>
 
-    <string name="slide_1_title">Blowmaster Score</string>
+    <string name="slide_1_title">Blow Master High Score</string>
 
-    <string name="slide_2_title">Jumpmaster Score</string>
+    <string name="slide_2_title">Jump Master High Score</string>
 
-    <string name="slide_3_title">Throwmaster Score</string>
+    <string name="slide_3_title">Throw Master High Score</string>
 
     <string-array name="dummy_data">
         <item>One</item>
@@ -49,11 +49,24 @@
     <string name="choose_game">Choose a game</string>
     <string name="blow_master">Blow master</string>
     <string name="throw_master">Throw master</string>
-    <string name="throw_master_description">Throw as long as you can!\n1. Pick your throwing hand\n2. Hold down the button\n3. \"Throw\"  the phone\n4. Release the button</string>
+    <string name="throw_master_description1">Throw as long as you can!</string>
+    <string name="throw_master_description2">1. Pick your throwing hand</string>
+    <string name="throw_master_description3">2. Hold down the button</string>
+    <string name="throw_master_description4">3. \"Throw\"  the phone</string>
+    <string name="throw_master_description5">4. Release the button</string>
     <string name="jump_master">Jump master</string>
-    <string name="check_highscore">Scoreboard</string>
+    <string name="check_highscore">Highscore</string>
     <string name="caution">Please use caution! \n Don’t acutally throw the phone</string>
-    <string name="blow_master_description">Blow as long as you can into the microphone</string>
+    <string name="blow_master_description1">Blow as long as you can!</string>
+    <string name="blow_master_description2">1. Put your mouth close to the microphone</string>
+    <string name="blow_master_description3">2. Click "Start Game"</string>
+    <string name="blow_master_description4">3. Wait for the counter</string>
+    <string name="blow_master_description5">4. Blow!</string>
     <string name="title_activity_blow_score">BlowScoreActivity</string>
+    <string name="title_activity_high_score">HighScoreActivity</string>
+    <string name="title_home">Jump Master</string>
+    <string name="title_dashboard">Throw Master</string>
+    <string name="title_notifications">Blow Master</string>
+    <string name="title_activity_throw_score">ThrowScoreActivity</string>
 
 </resources>

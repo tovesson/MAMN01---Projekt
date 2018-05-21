@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    Database helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        helper = new Database(this);
 
         Button blowMasterButton = findViewById(R.id.blowMasterButton);
         blowMasterButton.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         highscoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), WelcomeActivity.class);
+                Intent intent = new Intent(v.getContext(), HighScoreActivity.class);
+                intent.putExtra("game", "main");
                 startActivity(intent);
             }
         });
