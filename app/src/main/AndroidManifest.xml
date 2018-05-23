@@ -54,6 +54,13 @@
         <activity
             android:name=".BlowScoreActivity"
             android:label="@string/title_activity_blow_score"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".HighScoreActivity"
+            android:label="@string/title_activity_high_score" />
+        <activity
+            android:name=".ThrowScoreActivity"
+            android:label="@string/title_activity_throw_score"
             android:theme="@style/AppTheme"></activity>
     </application>
 

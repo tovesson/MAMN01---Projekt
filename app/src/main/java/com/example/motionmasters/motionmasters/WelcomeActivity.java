@@ -18,9 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -30,6 +33,14 @@ public class WelcomeActivity extends AppCompatActivity {
     private TextView[] dots;
     private int[] layouts;
     private PrefManager prefManager;
+    private HighScoreDatabase helper;
+    private double score;
+    private String name;
+    private String game;
+    private String[] blowMasterList;
+    private ListView listViewScore;
+    private ArrayAdapter<String> adapter;
+    private ArrayList<String> listItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +53,34 @@ public class WelcomeActivity extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
 
+
         setContentView(R.layout.activity_scoreoverlay);
+
+
+        listItems = new ArrayList<String>();
+        listViewScore = ((ListView) findViewById(R.id.item_blow_list).findViewById(R.id.blowScoreList));
+        TextView textView3 = ((TextView) findViewById(R.id.item_blow_list).findViewById(R.id.textView3));
+
+
+        blowMasterList = new String[5];
+        blowMasterList[0] = "a";
+        blowMasterList[1] = "b";
+        blowMasterList[2] = "c";
+        blowMasterList[3] = "d";
+        blowMasterList[4] = "e";
+        //blowMasterList.add("helper.getData()");
+        for (int i = 0; i < 10; i++){
+            listItems.add("element " + i);
+        }
+        adapter=new ArrayAdapter<String>(findViewById(R.id.item_blow_list).getContext(),
+                android.R.layout.simple_list_item_1,
+                listItems);
+        listViewScore.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-
 
         // layouts of all welcome sliders
         // add few more layouts if you want
@@ -67,6 +101,20 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
 
+
+
+        //Create database
+        helper = new HighScoreDatabase(this);
+
+        //Get intent parameters and insert in database
+        Intent receiveIntent = getIntent();
+        name = receiveIntent.getStringExtra("name").toString();
+        score = receiveIntent.getDoubleExtra("score", 0.0);
+        game = receiveIntent.getStringExtra("game").toString();
+        helper.insertData(name, score, game);
+
+
+        textView3.setText("NEW HEADER");
     }
 
     private void addBottomDots(int currentPage) {

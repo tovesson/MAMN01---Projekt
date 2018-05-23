@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
-public class JumpScoreActivity extends AppCompatActivity {
+public class ThrowScoreActivity extends AppCompatActivity {
     private EditText name;
     private TextView result;
-    private Button jumpScoreButton;
+    private Button throwScoreButton;
     private double score;
     private String game;
     private DecimalFormat decimalFormat;
@@ -25,29 +25,26 @@ public class JumpScoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jumpscore);
-        name = findViewById(R.id.jumpName);
-        result = findViewById(R.id.jump_ingame_result);
-        jumpScoreButton = findViewById(R.id.jumpScoreButton);
+        setContentView(R.layout.activity_throw_score);
+        name = findViewById(R.id.throwName);
+        result = findViewById(R.id.throw_ingame_result);
+        throwScoreButton = findViewById(R.id.throwScoreButton);
         decimalFormat = new DecimalFormat("0.00");
-        game = "Jumpmaster";
+        game = "Throwmaster";
         Intent receiveIntent = getIntent();
         score = receiveIntent.getDoubleExtra("score", 0.0);
-        result.setText("You jumped: " + score + "m");
+        result.setText("You \"threw\" the phone: " + String.format("%.2f", score) + "m");
         helper = new HighScoreDatabase(this);
 
 
-        jumpScoreButton.setOnClickListener(new View.OnClickListener() {
+        throwScoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(JumpScoreActivity.this, HighScoreActivity.class);
+                Intent intent = new Intent(ThrowScoreActivity.this, HighScoreActivity.class);
                 intent.putExtra("score",score);
                 intent.putExtra("name",name.getText().toString());
                 intent.putExtra("game",game);
-                Log.d("name", name.getText().toString());
-                Log.d("score", Double.toString(score));
-                Log.d("game", game);
                 helper.insertData(name.getText().toString(), score, game);
                 startActivity(intent);
             }
