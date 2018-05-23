@@ -3,11 +3,13 @@ package com.example.motionmasters.motionmasters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,6 +67,8 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
 
             }
         });
+        addBtn.setEnabled(false);
+
         mediaPlayer = MediaPlayer.create(this, R.raw.bounce);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -138,6 +142,11 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
 
                resultTxt.setTextSize(36);
                resultTxt.setText("Result: " + vis_height + "m");
+               vibrate();
+               addBtn.setEnabled(true);
+               addBtn.setBackgroundColor(Color.parseColor("#ecf0f1"));
+               addBtn.setTextColor(Color.parseColor("#29bb9c"));
+
                haveJumped = true;
            }
         }
@@ -146,6 +155,11 @@ public class JumpActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
+    }
+
+    public void vibrate(){
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(500);
     }
 
     @Override

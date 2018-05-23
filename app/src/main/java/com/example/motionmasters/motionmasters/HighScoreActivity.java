@@ -1,6 +1,7 @@
 package com.example.motionmasters.motionmasters;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -56,6 +57,7 @@ public class HighScoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_high_score);
         headerText = (TextView) findViewById(R.id.HighscoreHeaderText);
         Button backToMenu = findViewById(R.id.backToMenu);
