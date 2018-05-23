@@ -101,7 +101,7 @@ public class HighScoreDatabase {
         private static final String SCORE= "Score";    // Column III
         private static final String GAME= "Game";    // Column IV
         private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+
-                " ("+UID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME+" VARCHAR(255) ,"+SCORE+" VARCHAR(225) ," +GAME+" VARCHAR(225));";
+                " ("+UID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME+" VARCHAR(255) ,"+SCORE+" DOUBLE ," +GAME+" DOUBLE(225));";
         private static final String DROP_TABLE ="DROP TABLE IF EXISTS "+TABLE_NAME;
         private Context context;
 
