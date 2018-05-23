@@ -3,6 +3,7 @@ package com.example.motionmasters.motionmasters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -66,6 +67,8 @@ public class BlowActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        doneButton.setClickable(false);
+
     }
 
     protected void onResume() {
@@ -91,6 +94,9 @@ public class BlowActivity extends AppCompatActivity {
                                 if (nextScreenCounter > 2.0) {
                                     gameEnded = true;
                                     mouthImage.setAlpha(75);
+                                    doneButton.setClickable(true);
+                                    doneButton.setBackgroundColor(Color.parseColor("#ecf0f1"));
+                                    doneButton.setTextColor(Color.parseColor("#29bb9c"));
                                     if(!vibrated) {
                                         vibrate();
                                     }

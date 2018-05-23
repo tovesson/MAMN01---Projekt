@@ -51,6 +51,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jump_ingame_result" />
 
+    <TextView
+        android:id="@+id/helpTextJump"
+        android:layout_width="263dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Please enter your name"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jumpName" />
+
     <Button
         android:id="@+id/jumpScoreButton"
         android:layout_width="153dp"
@@ -59,7 +73,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@color/Carrot"
-        android:text="Go to scoreboard"
+        android:text="High Score"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
