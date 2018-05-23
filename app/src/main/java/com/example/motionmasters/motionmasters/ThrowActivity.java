@@ -188,9 +188,6 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
         }
         totAcc = xAcc + yAcc;
 
-        Log.d("xAcc", Float.toString(xAcc));
-        Log.d("yAcc", Float.toString(yAcc));
-        Log.d("totAcc", Float.toString(totAcc));
 
         //calculate the angle as a percentage of the acceleration in x compared to the total (in x and y direction) acceleration.
         angle = 90 - Math.abs(((xAcc / totAcc) * 90));
