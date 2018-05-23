@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_jump"
+        android:icon="@drawable/ic_jumpicon"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_throw"
+        android:icon="@drawable/ic_throwicon"
+        android:title="@string/title_dashboard" />
+
+    <item
+        android:id="@+id/navigation_blow"
+        android:icon="@drawable/ic_weather"
+        android:title="@string/title_notifications" />
+
+
+
+</menu>

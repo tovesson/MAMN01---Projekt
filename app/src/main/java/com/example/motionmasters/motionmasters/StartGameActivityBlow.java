@@ -16,7 +16,11 @@ public class StartGameActivityBlow extends AppCompatActivity {
     private int switchSec;
     private Button startBlowGameButton;
     private TextView blowMasterTitle;
-    private TextView blowMasterSubtitle;
+    private TextView blowMasterSubtitle1;
+    private TextView blowMasterSubtitle2;
+    private TextView blowMasterSubtitle3;
+    private TextView blowMasterSubtitle4;
+    private TextView blowMasterSubtitle5;
     private ImageView blowImageDescription;
 
     @Override
@@ -26,7 +30,11 @@ public class StartGameActivityBlow extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         startBlowGameButton = findViewById(R.id.startBlowGameButton);
         blowMasterTitle = findViewById(R.id.blowMasterTitle);
-        blowMasterSubtitle = findViewById(R.id.blowMasterSubtitle);
+        blowMasterSubtitle1 = findViewById(R.id.blowMasterSubtitle1);
+        blowMasterSubtitle2 = findViewById(R.id.blowMasterSubtitle2);
+        blowMasterSubtitle3 = findViewById(R.id.blowMasterSubtitle3);
+        blowMasterSubtitle4 = findViewById(R.id.blowMasterSubtitle4);
+        blowMasterSubtitle5 = findViewById(R.id.blowMasterSubtitle5);
         blowImageDescription = findViewById(R.id.blowImageDescription);
 
         startBlowGameButton.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +43,10 @@ public class StartGameActivityBlow extends AppCompatActivity {
                 blowMasterTitle.setVisibility(View.INVISIBLE);
                 blowImageDescription.setVisibility(View.INVISIBLE);
                 startBlowGameButton.setVisibility(View.INVISIBLE);
+                blowMasterSubtitle5.setVisibility(View.INVISIBLE);
+                blowMasterSubtitle2.setVisibility(View.INVISIBLE);
+                blowMasterSubtitle3.setVisibility(View.INVISIBLE);
+                blowMasterSubtitle4.setVisibility(View.INVISIBLE);
                 new CountDownTimer((4) * 1000, 1000) // Wait 5 secs, tick every 1 sec
                 {
                     @Override
@@ -43,16 +55,16 @@ public class StartGameActivityBlow extends AppCompatActivity {
                         switch (switchSec) {
 
                             case 3:
-                                blowMasterSubtitle.setTextSize(250);
-                                blowMasterSubtitle.setText("3");
+                                blowMasterSubtitle1.setTextSize(250);
+                                blowMasterSubtitle1.setText("3");
                                 break;
                             case 2:
-                                blowMasterSubtitle.setTextSize(250);
-                                blowMasterSubtitle.setText("2");
+                                blowMasterSubtitle1.setTextSize(250);
+                                blowMasterSubtitle1.setText("2");
                                 break;
                             case 1:
-                                blowMasterSubtitle.setTextSize(250);
-                                blowMasterSubtitle.setText("1");
+                                blowMasterSubtitle1.setTextSize(250);
+                                blowMasterSubtitle1.setText("1");
                                 break;
                         }
                     }

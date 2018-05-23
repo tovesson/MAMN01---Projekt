@@ -44,6 +44,7 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
     private RadioButton radioButton2;
     private RadioGroup radioGroup;
     private int rightHand;
+    private double distance;
 
 
     @Override
@@ -53,7 +54,6 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         startThrowGameButton = findViewById(R.id.startThrowGameButton);
         final TextView throwMasterTitle = findViewById(R.id.throwMasterTitle);
-        final TextView throwMasterSubtitle = findViewById(R.id.throwMasterSubtitle);
         final ImageView throwImage = findViewById(R.id.imageView2);
         throwImageText = findViewById(R.id.textView6);
         radioButton1 = findViewById(R.id.radioButton1);
@@ -96,7 +96,8 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
         throwButtonDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Intent intent = new Intent(v.getContext(), ThrowScoreActivity.class);
+                intent.putExtra("score",distance);
                 startActivity(intent);
             }
         });
@@ -115,29 +116,7 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
             }
         });
 
-
-        new CountDownTimer((2) * 1000, 1000) // Wait 5 secs, tick every 1 sec
-        {
-            @Override
-            public final void onTick(final long millisUntilFinished) {
-                throwButtonDone.setVisibility(View.INVISIBLE);
-                startThrowGameButton.setVisibility(View.INVISIBLE);
-                throwMasterSubtitle.setVisibility(View.INVISIBLE);
-                throwImageText.setVisibility(View.INVISIBLE);
-                radioGroup.setVisibility(View.INVISIBLE);
-
-            }
-
-            @Override
-            public void onFinish() {
-                startThrowGameButton.setVisibility(View.VISIBLE);
-                throwMasterSubtitle.setVisibility(View.VISIBLE);
-                throwImageText.setVisibility(View.VISIBLE);
-                radioGroup.setVisibility(View.VISIBLE);
-
-            }
-
-        }.start();
+        throwButtonDone.setVisibility(View.INVISIBLE);
     }
 
 
@@ -169,25 +148,24 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
             //linear_acceleration[2] = event.values[2];
             accValues.add(linear_acceleration);
 
-            throwImageText.setText(Float.toString(linear_acceleration[0]));
 
         }
     }
 
     public void calcAngle(ArrayList<float[]> values){
         for(int i = 0; i < values.size(); i++){
-            if(rightHand == 1) {
-                if (values.get(i)[0] > 0) {
+            if(rightHand == 1 ) {
+                if (values.get(i)[0] > 0 ) {
                     xAcc += values.get(i)[0];
                 }
-                if (values.get(i)[1] > 0) {
+                if (values.get(i)[1] > 0 ){
                     yAcc += values.get(i)[1];
                 }
-            }else if(rightHand == 0){
-                if (values.get(i)[0] < 0) {
+            }else if(rightHand == 0 ){
+                if (values.get(i)[0] < 0 ) {
                     xAcc += values.get(i)[0];
                 }
-                if (values.get(i)[1] < 0) {
+                if (values.get(i)[1] < 0 ) {
                     yAcc += values.get(i)[1];
                 }
             }
@@ -207,7 +185,7 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
             double maxHeight = yVelocity * maxHeightTime - (0.5 * 9.82 * Math.pow(maxHeightTime, 2));
             double totHeight = throwHeight + maxHeight;
             double totAirTime = Math.sqrt(totHeight * 2 / 9.82) + maxHeightTime;
-            double distance = velocity * Math.cos(Math.toRadians(angle)) * totAirTime;
+            distance = velocity * Math.cos(Math.toRadians(angle)) * totAirTime;
             if(Double.isNaN(distance)){
                 distance = 0.0;
             }
