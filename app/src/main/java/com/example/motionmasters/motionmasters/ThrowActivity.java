@@ -7,10 +7,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.CountDownTimer;
+import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.os.Vibrator;
 
 import java.util.ArrayList;
 
@@ -45,6 +45,8 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
     private RadioGroup radioGroup;
     private int rightHand;
     private double distance;
+    private MediaPlayer mediaPlayer;
+
 
 
     @Override
@@ -62,6 +64,10 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
         SensorManager mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         rightHand = -1;
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.throw_sound2);
+
+
 
         //Register listener and set sensor_delay to 100ms
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL / 100);
@@ -83,6 +89,7 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
                         buttonDown = false;
                         calcAngle(accValues);
                         vibrate();
+                        mediaPlayer.start();
                     }
                     return true;
                 }else{
@@ -165,7 +172,7 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
                 if (values.get(i)[0] < 0 ) {
                     xAcc += values.get(i)[0];
                 }
-                if (values.get(i)[1] < 0 ) {
+                if (values.get(i)[1] > 0 ) {
                     yAcc += values.get(i)[1];
                 }
             }
@@ -173,7 +180,18 @@ public class ThrowActivity extends AppCompatActivity implements SensorEventListe
         //Should be divided by values.size() to get the average acceleration, but values will be to low.
         xAcc = Math.abs(xAcc);
         yAcc = Math.abs(yAcc);
-        totAcc = xAcc + yAcc ;
+        if(xAcc > 2000){
+            xAcc = 1500;
+        }
+        if(yAcc > 2000){
+            yAcc = 1500;
+        }
+        totAcc = xAcc + yAcc;
+
+        Log.d("xAcc", Float.toString(xAcc));
+        Log.d("yAcc", Float.toString(yAcc));
+        Log.d("totAcc", Float.toString(totAcc));
+
         //calculate the angle as a percentage of the acceleration in x compared to the total (in x and y direction) acceleration.
         angle = 90 - Math.abs(((xAcc / totAcc) * 90));
         double throwTime = (values.size()*1.0)/100;

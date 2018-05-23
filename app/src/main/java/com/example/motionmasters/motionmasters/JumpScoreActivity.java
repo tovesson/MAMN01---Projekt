@@ -1,6 +1,7 @@
 package com.example.motionmasters.motionmasters;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 
 public class JumpScoreActivity extends AppCompatActivity {
@@ -22,12 +25,16 @@ public class JumpScoreActivity extends AppCompatActivity {
     private String game;
     private DecimalFormat decimalFormat;
     private HighScoreDatabase helper;
+    private TextView helpText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setContentView(R.layout.activity_jumpscore);
         name = findViewById(R.id.jumpName);
         result = findViewById(R.id.jump_ingame_result);
+        helpText = findViewById(R.id.helpTextJump);
         jumpScoreButton = findViewById(R.id.jumpScoreButton);
         decimalFormat = new DecimalFormat("0.00");
         game = "Jumpmaster";
@@ -40,16 +47,19 @@ public class JumpScoreActivity extends AppCompatActivity {
         jumpScoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(JumpScoreActivity.this, HighScoreActivity.class);
-                intent.putExtra("score",score);
-                intent.putExtra("name",name.getText().toString());
-                intent.putExtra("game",game);
-                Log.d("name", name.getText().toString());
-                Log.d("score", Double.toString(score));
-                Log.d("game", game);
-                helper.insertData(name.getText().toString(), score, game);
-                startActivity(intent);
+                if(name.getText().toString().length() >= 1) {
+                    Intent intent = new Intent(JumpScoreActivity.this, HighScoreActivity.class);
+                    intent.putExtra("score", score);
+                    intent.putExtra("name", name.getText().toString());
+                    intent.putExtra("game", game);
+                    Log.d("name", name.getText().toString());
+                    Log.d("score", Double.toString(score));
+                    Log.d("game", game);
+                    helper.insertData(name.getText().toString(), score, game);
+                    startActivity(intent);
+                }else{
+                    helpText.setVisibility(TextView.VISIBLE);
+                }
             }
         });
 
