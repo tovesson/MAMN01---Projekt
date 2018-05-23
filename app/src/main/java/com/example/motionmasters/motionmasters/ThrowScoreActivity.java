@@ -1,6 +1,7 @@
 package com.example.motionmasters.motionmasters;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,13 +23,19 @@ public class ThrowScoreActivity extends AppCompatActivity {
     private String game;
     private DecimalFormat decimalFormat;
     private HighScoreDatabase helper;
+    private TextView helpText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setContentView(R.layout.activity_throw_score);
         name = findViewById(R.id.throwName);
         result = findViewById(R.id.throw_ingame_result);
         throwScoreButton = findViewById(R.id.throwScoreButton);
+        helpText = findViewById(R.id.helpTextThrow);
+
         decimalFormat = new DecimalFormat("0.00");
         game = "Throwmaster";
         Intent receiveIntent = getIntent();
@@ -40,13 +47,16 @@ public class ThrowScoreActivity extends AppCompatActivity {
         throwScoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(ThrowScoreActivity.this, HighScoreActivity.class);
-                intent.putExtra("score",score);
-                intent.putExtra("name",name.getText().toString());
-                intent.putExtra("game",game);
-                helper.insertData(name.getText().toString(), score, game);
-                startActivity(intent);
+                if(name.getText().toString().length() >= 1) {
+                    Intent intent = new Intent(ThrowScoreActivity.this, HighScoreActivity.class);
+                    intent.putExtra("score", score);
+                    intent.putExtra("name", name.getText().toString());
+                    intent.putExtra("game", game);
+                    helper.insertData(name.getText().toString(), score, game);
+                    startActivity(intent);
+                }else{
+                    helpText.setVisibility(TextView.VISIBLE);
+                }
             }
         });
 
